@@ -8,6 +8,7 @@
 - 비트 연산 및 쉬프트 연산자에 대한 개념
 - signal.h 에 있는 함수의 사용방법, 시그널이 처리되는 과정
 - 시그널의 종류
+  
   ![Untitled](https://github.com/user-attachments/assets/399517f0-f296-4a03-baad-ecb80e4c67f7)
   
 ## 함수 설명 (Mandatory Part : Client)
@@ -16,7 +17,7 @@
 
 - PID의 예외처리로 100이하, 99999이상 PID는 유효하지 않은 것으로 간주 (100 이하는 시스템에서 사용 중이고 99999이상 PID는 존재하지 않기 때문)
 
-### void	send_bit(pid_t pid, char *str)
+### void send_bit(pid_t pid, char *str)
 
 - 문자 1개씩 전송하므로 char 기준 1바이트 즉, 8비트 단위로 전송함
 - 쉬프트 연산자와 비트 연산을 활용하여 8비트 중 맨 앞의 비트(MSB)부터 차례대로 전송
@@ -25,15 +26,15 @@
 - SIGUSR1 = 0, SIGUSR2= 1 의미하도록 지정함
 - 비트 전송 간격을 150us 정도의 딜레이를 주어서 서버에서 처리할 시간을 충분히 부여함 (서버에서 아직 처리가 완료되지 않았는데 클라이언트에서 빠른 속도로 비트를 보내면 문자 전송에 문제가 됨)
 
-## 함수 설명 (Mandatory : Server)
+## 함수 설명 (Mandatory Part : Server)
 
-### int	main(void)
+### int main(void)
 
 - server 실행 시 getpid 함수를 통해 PID 확인 및 출력
 - signal(처리할 시그널, 불러올 함수) 함수를 통해 SIGUSR1, SIGUSR2 신호가 들어오면 특정 함수를 실행함
 - pause를 통해 신호 대기
 
-### void	process_signal(int signo)
+### void process_signal(int signo)
 
 - SIGUSR1(1), SIGUSR2(0) 신호가 들어올때 마다 비트 연산 진행
 - LSB 부터 비트를 하나씩 변수에 저장함. 이 때 변수는 서버 프로그램이 종료될 때 까지 값을 기억하고 있어야 하므로 static으로 선언 (비트의 자리를 의미하는 인덱스 변수도 마찬가지)
@@ -92,7 +93,7 @@
 - SIGUSR1 : Bit 1 / Connection Start
 - SIGUSR2 : Bit 0 / Connection End
 
-## 함수 설명 (Bonus : Common)
+## 함수 설명 (Bonus Part: Common)
 
 ### void	initial_signal_handler(t_sig *sig, pid_t pid, char *str, void (*func)(int, siginfo_t *, void *))
 
@@ -100,20 +101,20 @@
 - t_sig 구조체는 안에 pid, str, 그리고 sigaction 구조체를 의미하는 sigact 구조체를 가지고 있음
 - sigaction 함수를 통해 SIGUSR1, SIGUSR2 신호가 들어왔을 시 설정한 sigaction 구조체를 불러오게 함
 
-## 함수 설명 (Bonus : Client)
+## 함수 설명 (Bonus Part: Client)
 
-### int	main(int ac, char *av[])
+### int main(int ac, char *av[])
 
 - sigaction 구조체를 설정하고 서버로부터 시그널을 받으면 호출되는 함수로 connection_start를 지정함
 - 연결 확인을 위해 서버에 SIGUSR1을 kill 함수로 보낸 후 서버의 응답을 pause()로 대기
 - 위 과정에서 서버에서 응답이 없을 경우 while(1) 문으로 2초간 SIGUSR1 신호를 보내는 로직을 추가함 (다중 클라이언트 사용 시, 앞선 클라이언트의 문자열을 처리하고 있으면 현재 클라이언트의 신호를 무시하게 되지만 이렇게 추가하면 앞선 클라이언트의 처리가 끝난 후 대기상태에 있던 클라이언트의 처리가 이루어짐)
 
-### void	send_bit(pid_t pid, char *str)
+### void send_bit(pid_t pid, char *str)
 
 - 비트를 보내는 과정은 동일함
 - 다만 마지막 문자를 보낸 다음에 0을 의미하는 00000000 비트를 보내서 전송할 문자가 더이상 없다는 것을 추가로 전달함 (서버에서 수신 완료에 대한 처리를 하기 위해)
 
-### void	connection_start(int signo, siginfo_t *siginfo, void *context)
+### void connection_start(int signo, siginfo_t *siginfo, void *context)
 
 - 서버로부터 SIGUSR1을 수신받으면 이 함수가 불러와짐
 - server와의 연결에 성공했다는 문자열을 출력
@@ -121,31 +122,31 @@
 - 연결에 성공했으니 send_bit 함수를 호출함
 - pause로 수신 성공 시그널 대기
 
-### void	connection_end(int signo, siginfo_t *siginfo, void *context)
+### void connection_end(int signo, siginfo_t *siginfo, void *context)
 
 - 수신에 성공했다는 의미를 가지는 SIGUSR2가 들어오면 실행되는 함수
 - SIGUSR2가 정상적으로 수신되었는지 확인하고 해당 메세지를 출력
 
-## 함수 설명 (Bonus : Server)
+## 함수 설명 (Bonus Part: Server)
 
 ### int	main(void)
 
 - sigaction 구조체 설정 및 신호가 들어오면 불러와질 함수로 connecion_start를 지정
 
-### void	connection_start(int signo, siginfo_t *siginfo, void *context)
+### void connection_start(int signo, siginfo_t *siginfo, void *context)
 
 - SIGUSR1이 수신되면 클라이언트와의 연결이 성공했다는 메세지를 출력함
 - siginfo 구조체를 통해 클라이언트 pid 출력
 - SIGUSR1 신호를 클라이언트로 보냄
 - 다음 신호를 통해 불러와질 함수로 process_bit_signal를 지정함
 
-### void	process_bit_signal(int signo, siginfo_t *siginfo, void *context);
+### void process_bit_signal(int signo, siginfo_t *siginfo, void *context);
 
 - 클라이언트의 문자열을 처리하고 있는 중에 다른 클라이언트에서 시그널을 보내오면 siginfo_t 구조체에서 pid값을 대조하여 다르면 무시하는 조건문을 추가함 (문자열 출력 깨짐 방지)
 - 전송받은 문자의 최종 값이 0이면 문자열 전송이 끝났다는 것으로 간주함
 - 문자열 전송이 끝나서 클라이언트에 0에 해당하는 신호가 수신되면 connection_end 함수 호출
 
-### void	connection_end(void)
+### void connection_end(void)
 
 - 비트를 다 전달받았으면 호출됨
 - 다음에 불러와질 함수로 connection_start를 지정함
