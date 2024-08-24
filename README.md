@@ -11,7 +11,7 @@
   
   ![Untitled](https://github.com/user-attachments/assets/399517f0-f296-4a03-baad-ecb80e4c67f7)
   
-## 함수 설명 (Mandatory Part : Client)
+## 함수 설명 (Mandatory Part: Client)
 
 ### int	main(int ac, char *av[])
 
@@ -26,7 +26,7 @@
 - SIGUSR1 = 0, SIGUSR2= 1 의미하도록 지정함
 - 비트 전송 간격을 150us 정도의 딜레이를 주어서 서버에서 처리할 시간을 충분히 부여함 (서버에서 아직 처리가 완료되지 않았는데 클라이언트에서 빠른 속도로 비트를 보내면 문자 전송에 문제가 됨)
 
-## 함수 설명 (Mandatory Part : Server)
+## 함수 설명 (Mandatory Part: Server)
 
 ### int main(void)
 
@@ -57,14 +57,15 @@
     - sa_handler, sa_sigaction : 시그널 처리 핸들러
     - sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
     
-    ![Screen Shot 2023-03-02 at 5.55.31 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c14cacea-2ef5-48dd-9f77-f5979b00ab60/Screen_Shot_2023-03-02_at_5.55.31_PM.png)
-    
-- server에서 client의 pid를 알기 위해서는 sa_sigaction 포인터 함수의 siginfo_t 구조체를 사용해야 함. (sa_flags를 SA_SIGINFO로 지정해야 sa_handler 대신 sa_sigaction를 사용할 수 있음)
-- sa_sigaction 포인터 함수의 매개변수
-    - int signo : 시그널 핸들러를 호출하는 시그널
-    - siginfo_t *siginfo : 시그널을 발생한 측의 정보
+  <img width="734" alt="Screen Shot 2023-03-02 at 5 55 31 PM" src="https://github.com/user-attachments/assets/4bdc5e98-38c0-4926-81a7-fe4cd8626d31">
+  
+    - server에서 client의 pid를 알기 위해서는 sa_sigaction 포인터 함수의 siginfo_t 구조체를 사용해야 함. (sa_flags를 SA_SIGINFO로 지정해야 sa_handler 대신 sa_sigaction를 사용할 수 있음)
+    - sa_sigaction 포인터 함수의 매개변수
+      - int signo : 시그널 핸들러를 호출하는 시그널
+      - siginfo_t *siginfo : 시그널을 발생한 측의 정보
         
-        ![Screen Shot 2023-03-09 at 1.28.05 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/07a07f4f-65a2-44a1-98e2-685ba3220238/Screen_Shot_2023-03-09_at_1.28.05_PM.png)
+<img width="506" alt="Screen Shot 2023-03-09 at 1 28 05 PM" src="https://github.com/user-attachments/assets/33249ab4-43d8-40ca-885c-6c4a17a87727">
+
         
     - void *context : 시그널을 받는 측의 내부 상태
 - **시그널 핸들러 함수는 sa_sigaction 포인터 함수의 매개변수와 동일해야 함 (이로 인해서 sigaction 구조체를 매개변수로 추가할 수 없기에 전역변수로 선언해야 함)**
@@ -72,7 +73,8 @@
 - sigemptyset 함수를 통해 sa_mask 구조체 변수의 시그널들을 모두 비움 (시그널 블로킹 안함)
 - 위와 같이 설정한 sigaction 구조체를 적용시키기 위해 sigaction 함수를 호출함
     
-    ![Screen Shot 2023-03-02 at 6.28.07 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dbc54e9e-d425-469b-a875-83b692c39ae7/Screen_Shot_2023-03-02_at_6.28.07_PM.png)
+<img width="636" alt="Screen Shot 2023-03-02 at 6 28 07 PM" src="https://github.com/user-attachments/assets/4a02fc45-80f3-4f4f-9d97-ed0fdaf84de4">
+
     
     - int signum : 수신받은 시그널
     - *act : 시그널 발생 시 시그널 처리와 관련되어 설정한 sigaction 구조체
