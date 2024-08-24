@@ -53,6 +53,7 @@
   💡 https://badayak.com/entry/C언어-시그널-처리-함수-sigaction
 
   <img width="449" alt="Screen Shot 2023-03-02 at 6 24 38 PM" src="https://github.com/user-attachments/assets/00d53a08-917f-44aa-b02a-2aa4abae4952">
+  
     - sa_handler, sa_sigaction : 시그널 처리 핸들러
     - sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
     
