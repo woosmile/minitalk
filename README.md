@@ -47,13 +47,14 @@
 - server에서 client로 전송을 잘 받았다는 신호를 전달 해야함.
 - 따라서 server에서 client의 pid를 얻는 과정이 추가 됨
 - sigaction 구조체의 사용
+  
   💡 https://www.joinc.co.kr/w/man/2/sigaction
+  
   💡 https://badayak.com/entry/C언어-시그널-처리-함수-sigaction
 
   <img width="449" alt="Screen Shot 2023-03-02 at 6 24 38 PM" src="https://github.com/user-attachments/assets/00d53a08-917f-44aa-b02a-2aa4abae4952">
-
-- sa_handler, sa_sigaction : 시그널 처리 핸들러
-- sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
+    - sa_handler, sa_sigaction : 시그널 처리 핸들러
+    - sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
     
     ![Screen Shot 2023-03-02 at 5.55.31 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c14cacea-2ef5-48dd-9f77-f5979b00ab60/Screen_Shot_2023-03-02_at_5.55.31_PM.png)
     
