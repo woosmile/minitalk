@@ -64,18 +64,16 @@
       - int signo : 시그널 핸들러를 호출하는 시그널
       - siginfo_t *siginfo : 시그널을 발생한 측의 정보
         
-<img width="506" alt="Screen Shot 2023-03-09 at 1 28 05 PM" src="https://github.com/user-attachments/assets/33249ab4-43d8-40ca-885c-6c4a17a87727">
-
-        
+  <img width="506" alt="Screen Shot 2023-03-09 at 1 28 05 PM" src="https://github.com/user-attachments/assets/33249ab4-43d8-40ca-885c-6c4a17a87727">
+  
     - void *context : 시그널을 받는 측의 내부 상태
 - **시그널 핸들러 함수는 sa_sigaction 포인터 함수의 매개변수와 동일해야 함 (이로 인해서 sigaction 구조체를 매개변수로 추가할 수 없기에 전역변수로 선언해야 함)**
 - sa_mask : 시그널 핸들러가 동작 중일 때 차단할 시그널 집합
 - sigemptyset 함수를 통해 sa_mask 구조체 변수의 시그널들을 모두 비움 (시그널 블로킹 안함)
 - 위와 같이 설정한 sigaction 구조체를 적용시키기 위해 sigaction 함수를 호출함
-    
+
 <img width="636" alt="Screen Shot 2023-03-02 at 6 28 07 PM" src="https://github.com/user-attachments/assets/4a02fc45-80f3-4f4f-9d97-ed0fdaf84de4">
 
-    
     - int signum : 수신받은 시그널
     - *act : 시그널 발생 시 시그널 처리와 관련되어 설정한 sigaction 구조체
     - *oldact : 이전에 설정한 sigaction 구조체
