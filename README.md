@@ -1,7 +1,7 @@
 # minitalk
 
 - Client 프로그램으로 Server 프로그램에 문자열을 전송하는 과제
-- Server 프로그램은 Client 프로그램으로부터 문자를 계속 받을 수 있는 상태여야 함 (문자열을 한번 수신받고 종료되는 것이 아니라 계속해서 대기상태로 있어야 함)
+- Server 프로그램은 Client 프로그램으로부터 문자를 계속 받을 수 있는 상태여야 함
 
 ## 학습 내용
 
@@ -56,23 +56,23 @@
   
     - sa_handler, sa_sigaction : 시그널 처리 핸들러
     - sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
-    
-    <img width="734" alt="Screen Shot 2023-03-02 at 5 55 31 PM" src="https://github.com/user-attachments/assets/4bdc5e98-38c0-4926-81a7-fe4cd8626d31">
+      
+        <img width="734" alt="Screen Shot 2023-03-02 at 5 55 31 PM" src="https://github.com/user-attachments/assets/4bdc5e98-38c0-4926-81a7-fe4cd8626d31">
   
-    - server에서 client의 pid를 알기 위해서는 sa_sigaction 포인터 함수의 siginfo_t 구조체를 사용해야 함. (sa_flags를 SA_SIGINFO로 지정해야 sa_handler 대신 sa_sigaction를 사용할 수 있음)
+    - server에서 client의 pid를 알기 위해서는 sa_sigaction 포인터 함수의 siginfo_t 구조체를 사용해야 함 (sa_flags를 SA_SIGINFO로 지정해야 sa_handler 대신 sa_sigaction를 사용할 수 있음)
     - sa_sigaction 포인터 함수의 매개변수
       - int signo : 시그널 핸들러를 호출하는 시그널
       - siginfo_t *siginfo : 시그널을 발생한 측의 정보
         
-  <img width="506" alt="Screen Shot 2023-03-09 at 1 28 05 PM" src="https://github.com/user-attachments/assets/33249ab4-43d8-40ca-885c-6c4a17a87727">
+          <img width="506" alt="Screen Shot 2023-03-09 at 1 28 05 PM" src="https://github.com/user-attachments/assets/33249ab4-43d8-40ca-885c-6c4a17a87727">
   
     - void *context : 시그널을 받는 측의 내부 상태
 - **시그널 핸들러 함수는 sa_sigaction 포인터 함수의 매개변수와 동일해야 함 (이로 인해서 sigaction 구조체를 매개변수로 추가할 수 없기에 전역변수로 선언해야 함)**
 - sa_mask : 시그널 핸들러가 동작 중일 때 차단할 시그널 집합
 - sigemptyset 함수를 통해 sa_mask 구조체 변수의 시그널들을 모두 비움 (시그널 블로킹 안함)
 - 위와 같이 설정한 sigaction 구조체를 적용시키기 위해 sigaction 함수를 호출함
-
-<img width="636" alt="Screen Shot 2023-03-02 at 6 28 07 PM" src="https://github.com/user-attachments/assets/4a02fc45-80f3-4f4f-9d97-ed0fdaf84de4">
+  
+    <img width="636" alt="Screen Shot 2023-03-02 at 6 28 07 PM" src="https://github.com/user-attachments/assets/4a02fc45-80f3-4f4f-9d97-ed0fdaf84de4">
 
     - int signum : 수신받은 시그널
     - *act : 시그널 발생 시 시그널 처리와 관련되어 설정한 sigaction 구조체
@@ -82,7 +82,7 @@
 
 ## 함수 설명 (Bonus Part: Common)
 
-### void	initial_signal_handler(t_sig *sig, pid_t pid, char *str, void (*func)(int, siginfo_t *, void *))
+### void initial_signal_handler(t_sig *sig, pid_t pid, char *str, void (*func)(int, siginfo_t *, void *))
 
 - sigaction 구조체를 설정하고 signal handler를 지정하는 함수
 - t_sig 구조체는 안에 pid, str, 그리고 sigaction 구조체를 의미하는 sigact 구조체를 가지고 있음
