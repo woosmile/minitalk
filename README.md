@@ -57,7 +57,7 @@
     - sa_handler, sa_sigaction : 시그널 처리 핸들러
     - sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
     
-  <img width="734" alt="Screen Shot 2023-03-02 at 5 55 31 PM" src="https://github.com/user-attachments/assets/4bdc5e98-38c0-4926-81a7-fe4cd8626d31">
+    <img width="734" alt="Screen Shot 2023-03-02 at 5 55 31 PM" src="https://github.com/user-attachments/assets/4bdc5e98-38c0-4926-81a7-fe4cd8626d31">
   
     - server에서 client의 pid를 알기 위해서는 sa_sigaction 포인터 함수의 siginfo_t 구조체를 사용해야 함. (sa_flags를 SA_SIGINFO로 지정해야 sa_handler 대신 sa_sigaction를 사용할 수 있음)
     - sa_sigaction 포인터 함수의 매개변수
