@@ -44,28 +44,13 @@
 ## Bonus Part
 
 - 유니코드 문자열에 대한 개념 설명이 추가됨
-    
-    <aside>
-    💡 [https://jeongdowon.medium.com/unicode와-utf-8-간단히-이해하기-b6aa3f7edf96](https://jeongdowon.medium.com/unicode%EC%99%80-utf-8-%EA%B0%84%EB%8B%A8%ED%9E%88-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-b6aa3f7edf96)
-    
-    </aside>
-    
 - server에서 client로 전송을 잘 받았다는 신호를 전달 해야함.
 - 따라서 server에서 client의 pid를 얻는 과정이 추가 됨
 - sigaction 구조체의 사용
-    
-    <aside>
-    💡 https://www.joinc.co.kr/w/man/2/sigaction
-    
-    </aside>
-    
-    <aside>
-    💡 [https://badayak.com/entry/C언어-시그널-처리-함수-sigaction](https://badayak.com/entry/C%EC%96%B8%EC%96%B4-%EC%8B%9C%EA%B7%B8%EB%84%90-%EC%B2%98%EB%A6%AC-%ED%95%A8%EC%88%98-sigaction)
-    
-    </aside>
-    
+  💡 https://www.joinc.co.kr/w/man/2/sigaction
+  💡 https://badayak.com/entry/C언어-시그널-처리-함수-sigaction
 
-![Screen Shot 2023-03-02 at 6.24.38 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a259bce-44da-4663-ac39-b39be4550907/Screen_Shot_2023-03-02_at_6.24.38_PM.png)
+  <img width="449" alt="Screen Shot 2023-03-02 at 6 24 38 PM" src="https://github.com/user-attachments/assets/00d53a08-917f-44aa-b02a-2aa4abae4952">
 
 - sa_handler, sa_sigaction : 시그널 처리 핸들러
 - sa_flags : 시그널 처리 과정을 어떻게 변화시킬 것인지 결정하는 변수
